@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentation - Créateur de Routine</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+    />
+  </head>
+  <body class="bg-light">
+    <div class="container py-5">
+      <header class="text-center mb-5">
+        <h1 class="display-4">Rapport - Créateur de Routine Quotidienne</h1>
+        <p class="lead">Documentation complète de la web app</p>
+      </header>
+
+      <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+          <section id="vue-ensemble" class="mb-5">
+            <h2>Vue d'ensemble</h2>
+            <p>
+              Cette web application permet à l'utilisateur de créer une routine
+              quotidienne personnalisée en utilisant un ensemble de phrases
+              japonaises préorganisées. Les fonctionnalités incluent la
+              recherche par mot-clé, l'ajout de tâches horaires, le basculement
+              multilingue, et la persistance locale.
+            </p>
+            <h3>Objectif</h3>
+            <ul>
+              <li>
+                Organiser des routines journalières (restrictions 00:00 à 23:59,
+                uniquement pour le jour actuel).
+              </li>
+              <li>
+                Utiliser des phrases japonaises structurées par périodes
+                (matinée, après-midi, soirée, nuit) et thèmes (nourriture,
+                transport, etc.).
+              </li>
+              <li>
+                Faciliter l'apprentissage des langues via des traductions
+                multilingues (Français, Anglais, Malagasy).
+              </li>
+            </ul>
+          </section>
+
+          <section id="structure" class="mb-5">
+            <h2>Structure des fichiers et dossiers</h2>
+            <pre><code>assets/japonais/routine/
+├── index.html                  # Page principale HTML
+├── script.js                   # Logique JavaScript
+├── style.css                   # Styles CSS personnalisés
+├── documentation.html          # Ce rapport
+├── matinée.json                # Phrases du matin
+├── après-midi.json             # Phrases de l'après-midi
+├── soirée.json                 # Phrases du soir
+├── nuit.json                   # Phrases de la nuit
+├── index.json                  # Métadonnées et index général
+├── themes/                     # Sous-dossier thématique
+│   ├── nourriture.json         # Phrases alimentaire
+│   ├── transport.json          # Phrases de transport
+│   ├── lieux.json              # Phrases sur les lieux
+│   ├── expressions.json        # Expressions diverses
+│   └── grammaire.json          # Exemples grammaticaux
+├── remove_kanji.py             # Script Python pour nettoyage (historique)
+├── add_japonais.py             # Script Python pour ajout (historique)
+└── clean_json.py               # Script Python pour nettoyage clés (historique)</code></pre>
+          </section>
+
+          <section id="donnees" class="mb-5">
+            <h2>Données</h2>
+            <h3>Format JSON</h3>
+            <p>Chaque phrase est un objet JSON avec clés :</p>
+            <ul>
+              <li><code>japonais</code> : Texte en kanjis japonaises.</li>
+              <li><code>francais</code> : Traduction française.</li>
+              <li><code>anglais</code> : Traduction anglaise.</li>
+              <li><code>malagasy</code> : Traduction malgache.</li>
+              <li><code>transcription</code> : Romanji (prononciation).</li>
+            </ul>
+            <h3>Organisation</h3>
+            <ul>
+              <li>
+                <strong>Routine temporelle</strong> : matinee.json,
+                apres-midi.json, soiree.json, nuit.json
+              </li>
+              <li>
+                <strong>Thématique</strong> : themes/ pour accès par catégories.
+              </li>
+              <li>
+                <strong>Index</strong> : index.json récapitule métadonnées et
+                statistiques.
+              </li>
+              <li>
+                <strong>Dédoublement</strong> : Phrases uniques chargées via
+                déduplication par clé française.
+              </li>
+            </ul>
+          </section>
+
+          <section id="fonctionnalites" class="mb-5">
+            <h2>Fonctionnalités principales</h2>
+            <h3>1. Recherche et sélection</h3>
+            <ul>
+              <li>
+                <strong>Champs</strong> : Sélecteur de langue + input mot-clé.
+              </li>
+              <li>
+                <strong>Filtrage</strong> : Suggestion 5 phrases max contenant
+                le mot-clé dans la langue choisie.
+              </li>
+              <li>
+                <strong>Sélection</strong> : Clic sur suggestion remplit
+                automatiquement.
+              </li>
+            </ul>
+            <h3>2. Ajout de tâches</h3>
+            <ul>
+              <li><strong>Heure</strong> : Input HTML5 time pour HH:MM.</li>
+              <li>
+                <strong>Validation</strong> : Alerte si heure ou phrase
+                manquante.
+              </li>
+              <li>
+                <strong>Sauvegarde</strong> : Stockage en localStorage, tri
+                automatique par heure.
+              </li>
+            </ul>
+            <h3>3. Affichage routine</h3>
+            <ul>
+              <li>
+                <strong>Liste triée</strong> : Affichage heure croissante.
+              </li>
+              <li>
+                <strong>Basculement langue</strong> : Boutons drapeaux (🇯🇵 pour
+                J avec transcription, 🇫🇷, 🇬🇧, 🇲🇬).
+              </li>
+              <li><strong>Suppression</strong> : Bouton trash par tâche.</li>
+            </ul>
+            <h3>4. Persistance</h3>
+            <ul>
+              <li>
+                <strong>localStorage</strong> : Données sauvegardées
+                automatiquement sur refresh.
+              </li>
+              <li>
+                <strong>Date dynamique</strong> : Affiche toujours la date
+                d'aujourd'hui.
+              </li>
+            </ul>
+          </section>
+
+          <section id="dependances" class="mb-5">
+            <h2>Dépendances et imports</h2>
+            <h3>External CDNs</h3>
+            <ul>
+              <li>
+                <strong>Bootstrap 5.3.0</strong> : UI framework pour cards,
+                forms, buttons.
+              </li>
+              <li>
+                <strong>Font Awesome 6.4.0</strong> : Icônes (trash pour
+                supprimer).
+              </li>
+              <li>Pas de backend.</li>
+            </ul>
+            <h3>Modules JavaScript</h3>
+            <ul>
+              <li>
+                <strong>ES6+ features</strong> : async/await, fetch,
+                localStorage, template literals.
+              </li>
+              <li>
+                <strong>API Browser</strong> : Date.toLocaleDateString, fetch
+                pour JSON.
+              </li>
+            </ul>
+            <h3>Python (scripts intermédiaires)</h3>
+            <ul>
+              <li>
+                Utilisés pour traitements batchs (nettoyage JSON), pas runtime.
+              </li>
+            </ul>
+          </section>
+
+          <section id="algorithme" class="mb-5">
+            <h2>Algorithme - Fonctionnement étape par étape (pseudocode générique)</h2>
+            <h3>Chargement des phrases</h3>
+            <ol>
+              <li>À l'initialisation de l'application :</li>
+              <li>Afficher la date actuelle du jour.</li>
+              <li>Appeler la fonction charger_phrases() de manière asynchrone.</li>
+              <li>Dans charger_phrases() :</li>
+              <li>Créer une liste fichiers = ["matinee.json", "apres-midi.json", ...]</li>
+              <li>Pour chaque fichier dans fichiers :</li>
+              <ul>
+                <li>Télécharger le contenu du fichier JSON.</li>
+                <li>Analyser le contenu en liste d'objets phrase.</li>
+                <li>Ajouter toutes ces phrases à la liste globale phrases_toutes.</li>
+              </ul>
+              <li>Créer une liste phrases_uniques et une collection vraie/faux vue.</li>
+              <li>Pour chaque phrase dans phrases_toutes :</li>
+              <ul>
+                <li>clé = phrase.francais</li>
+                <li>Si cle n'est pas dans vue :</li>
+                <ul>
+                  <li>Ajouter cle à vue</li>
+                  <li>Ajouter phrase à phrases_uniques</li>
+                </ul>
+              </ul>
+              <li>Retourner phrases_uniques</li>
+            </ol>
+            <h3>Recherche et sélection</h3>
+            <ul>
+              <li>Lorsque l'utilisateur saisit dans champ_mot :</li>
+              <li>Si longueur(mot) > 0 :</li>
+              <li>resultats = filtrer phrases_toutes où champ_langue.includes(mot), prendre 5 premiers</li>
+              <li>Générer suggestions pour chaque, avec clic qui sélectionne la phrase</li>
+              <li>Lors de sélection :</li>
+              <li>phrase_choisie = la phrase</li>
+              <li>Vider les suggestions</li>
+            </ul>
+            <h3>Ajout de tâche</h3>
+            <ul>
+              <li>Lors de clic bouton_ajouter :</li>
+              <li>heure = champ_heure.valeur, langue = choix_langue</li>
+              <li>Si heure est vide ou phrase_choisie est vide :</li>
+              <li>Afficher message erreur</li>
+              <li>Retour</li>
+              <li>C'est notre</li>
+              <li>routine = charger depuis stockage_persistant("routine_journaliere") ou nouvelle liste</li>
+              <li>Ajouter objet {heure, phrase: phrase_choisie, langue} à routine</li>
+              <li>Trier routine par heure croissante</li>
+              <li>Sauvegarder routine dans stockage_persistant</li>
+              <li>Recharger affichage routine</li>
+              <li>Réinitialiser formulaire</li>
+            </ul>
+            <h3>Affichage routine</h3>
+            <ul>
+              <li>Procedure recharger_affichage :</li>
+              <li>routine = charger depuis stockage_persistant</li>
+              <li>Vider liste_affichage</li>
+              <li>Pour chaque élément dans routine :</li>
+              <ul>
+                <li>Créer entrée avec heure + phrase[choix_langue] + boutons basculement</li>
+              </ul>
+            </ul>
+            <h3>Basculement langue</h3>
+            <ul>
+              <li>Lors de clic bouton_langue(id, nouvelle_langue) :</li>
+              <li>routine = charger</li>
+              <li>trouver élément où heure_normalisee == id</li>
+              <li>texte = element.phrase[nouvelle_langue]</li>
+              <li>Si nouvelle_langue == "japonais" :</li>
+              <li>texte = texte + " (" + element.phrase.transcription + ")"</li>
+              <li>Afficher texte dans affichage</li>
+            </ul>
+            <h3>Suppression</h3>
+            <ul>
+              <li>Lors de clic bouton_suppr(heure) :</li>
+              <li>routine = charger</li>
+              <li>Enlever éléments où != heure</li>
+              <li>Sauvegarder</li>
+              <li>Recharger affichage</li>
+            </ul>
+          </section>
+
+          <section id="implémentation" class="mb-5">
+            <h2>Implémentation technique</h2>
+            <h3>script.js</h3>
+            <ul>
+              <li>
+                <code>loadPhrases()</code> : Async fetch de tous JSONs, concat
+                et dédupl.
+              </li>
+              <li>
+                <code>selectPhrase()</code>, <code>addTask()</code> : Gestion
+                événements.
+              </li>
+              <li><code>loadRoutine()</code> : Rendu liste triée.</li>
+              <li>
+                <code>switchLang()</code> : Bascule phrases avec transcription
+                pour J.
+              </li>
+              <li><code>removeTask()</code> : Suppression et réaffichage.</li>
+            </ul>
+            <h3>index.html</h3>
+            <ul>
+              <li>Formulaire Bootstrap pour inputs.</li>
+              <li>Cards pour sections UI.</li>
+              <li>Emojis + Font Awesome pour icônes.</li>
+            </ul>
+            <h3>style.css</h3>
+            <ul>
+              <li>Gradients et éléments custom pour design.</li>
+            </ul>
+          </section>
+
+          <section id="déploiement" class="mb-5">
+            <h2>Déploiement et utilisation</h2>
+            <ol>
+              <li>
+                Placer le dossier <code>routine/</code> sur serveur web (Apache,
+                Nginx, VS Code Live Server).
+              </li>
+              <li>Ouvrir <code>index.html</code> dans browser moderne.</li>
+              <li>Autoriser localStorage pour persistance.</li>
+            </ol>
+            <h3>Limitations</h3>
+            <ul>
+              <li>
+                Hors ligne : OK si serveurs down, mais localStorage gardé.
+              </li>
+              <li>Console errors : Bootstrap warnings ignorables.</li>
+            </ul>
+          </section>
+
+          <section id="evolution" class="mb-5">
+            <h2>Évolution future</h2>
+            <ul>
+              <li>Optimisations : Cache phrases pour performance.</li>
+              <li>Personnalisation : Thèmes UI, export routine.</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+      hljs.highlightAll();
+    </script>
+  </body>
+</html>

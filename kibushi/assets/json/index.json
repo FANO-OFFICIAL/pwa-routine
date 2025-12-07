@@ -1,0 +1,62 @@
+{
+  "description": "Index des fichiers de phrases japonaises organisés par routine quotidienne.",
+  "sections": [
+    {
+      "name": "matinée",
+      "file": "matinée.json",
+      "phrases_count": 13,
+      "description": "Phrases pour la matinée : salutations, questions, politesse."
+    },
+    {
+      "name": "après-midi",
+      "file": "après-midi.json",
+      "phrases_count": 18,
+      "description": "Phrases pour l'après-midi : interactions, nourriture, grammaire."
+    },
+    {
+      "name": "soirée",
+      "file": "soirée.json",
+      "phrases_count": 23,
+      "description": "Phrases pour la soirée : transports, nourriture, célébrations, particules."
+    },
+    {
+      "name": "nuit",
+      "file": "nuit.json",
+      "phrases_count": 9,
+      "description": "Phrases pour la nuit : objets quotidiens, expressions calmes, particules."
+    }
+  ],
+  "total_phrases": 63,
+  "themes": [
+    {
+      "name": "nourriture",
+      "file": "thèmes/nourriture.json",
+      "phrases_count": 6,
+      "description": "Phrases relatives à la nourriture (e.g. pan, sushi)"
+    },
+    {
+      "name": "transport",
+      "file": "thèmes/transport.json",
+      "phrases_count": 4,
+      "description": "Phrases sur le transport (e.g. densha, takushi)"
+    },
+    {
+      "name": "lieux",
+      "file": "thèmes/lieux.json",
+      "phrases_count": 5,
+      "description": "Phrases sur les lieux (e.g. Tokyo, Asakusa)"
+    },
+    {
+      "name": "expressions",
+      "file": "thèmes/expressions.json",
+      "phrases_count": 16,
+      "description": "Expressions informelles (e.g. yatta, dame, omedetō)"
+    },
+    {
+      "name": "grammaire",
+      "file": "thèmes/grammaire.json",
+      "phrases_count": 16,
+      "description": "Exemples de particules (ga, wo, de, ni, kara, made, to, ka, e)"
+    }
+  ]
+}

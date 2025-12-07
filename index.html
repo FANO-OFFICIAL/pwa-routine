@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apprendre les Langues</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1a1a2e">
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <main class="app-container">
+        <header class="app-header">
+            <h1>Apprendre les Langues</h1>
+            <p>Choisissez une langue à explorer</p>
+        </header>
+
+        <nav class="category-grid">
+            <a href="#sakalava" class="category-card">
+                <div class="card-icon">
+                    <span>S</span>
+                </div>
+                <div class="card-content">
+                    <h2>Sakalava</h2>
+                    <p>Dialecte de Madagascar</p>
+                </div>
+            </a>
+            <a href="#kibushi" class="category-card">
+                <div class="card-icon">
+                    <span>K</span>
+                </div>
+                <div class="card-content">
+                    <h2>Kibushi</h2>
+                    <p>Langue de Mayotte</p>
+                </div>
+            </a>
+            <a href="#malagasy" class="category-card">
+                <div class="card-icon">
+                    <span>M</span>
+                </div>
+                <div class="card-content">
+                    <h2>Malagasy</h2>
+                    <p>Langue nationale de Madagascar</p>
+                </div>
+            </a>
+        </nav>
+    </main>
+
+    <script>
+        // Enregistrer le Service Worker pour la PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('Service Worker enregistré avec succès:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Échec de l\'enregistrement du Service Worker:', error);
+                    });
+            });
+        }
+    </script>
+
+</body>
+</html>
